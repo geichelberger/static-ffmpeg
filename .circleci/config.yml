@@ -14,3 +14,15 @@ jobs:
       - run:
           name: Deploy
           command: ./deploy.sh
+workflows:
+  version: 2
+  nightly:
+    triggers:
+      - schedule:
+        cron: "3 50 * * *"
+        filters:
+          branches:
+            only:
+              - master
+    jobs:
+      - build
