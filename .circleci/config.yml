@@ -16,6 +16,9 @@ jobs:
           command: ./deploy.sh
 workflows:
   version: 2
+  commit:
+    jobs:
+      - build
   nightly:
     triggers:
       - schedule:
