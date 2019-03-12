@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# DEPENDENCIES-BASE: git, mercurial, curl, tar, gcc, g++, make, libtool, automake, autoconf, pkg-config, cmake, bison, flex
+# DEPENDENCIES-BASE: git, mercurial, curl, wget, tar, gcc, g++, make, libtool, automake, autoconf, autogen, pkg-config, cmake, bison, flex, gperf, gettext, autopoint texinfo texlive
 # DEPENDENCIES?: libexpat, libpng
-# DEPENDENCIES: libfontconfig-devel, libfreetype2-devel, libbz2-devel, librubberband-devel, libfftw3-devel, libsamplerate0-devel
+# DEPENDENCIES: libfontconfig-devel, libfreetype2-devel, libbz2-devel, librubberband-devel, libfftw3-devel, libsamplerate0-devel, libgmp-devel
 
 set -u
 set -e
@@ -36,6 +36,24 @@ git_get_frver() # fresh with version
     cd $CURRENT_DIR
 }
 
+git_get_submd()
+{
+    git_get_fresh $1 $2
+
+    echo "SUBMODULES $1"
+
+    local CURRENT_DIR
+    CURRENT_DIR=$(pwd)
+
+    cd $1
+
+    git submodule deinit -f .
+    git submodule init
+    git submodule update
+
+    cd $CURRENT_DIR
+}
+
 dl_tar_gz_fre()
 {
     local CURRENT_DIR
@@ -60,6 +78,20 @@ autogen_src()
     echo "AUTOGEN $1"
 
     ./autogen.sh
+}
+
+bootstrap_src()
+{
+    echo "BOOTSTRAP $1"
+
+    ./bootstrap
+}
+
+dot_bootstrap_src()
+{
+    echo "BOOTSTRAP $1"
+
+    ./.bootstrap
 }
 
 configure_src()
@@ -188,6 +220,34 @@ compile_with_autogen()
     cd $CURRENT_DIR
 }
 
+compile_with_bootstrap()
+{
+    local CURRENT_DIR
+    CURRENT_DIR=$(pwd)
+
+    cd $SRC/$1
+
+    bootstrap_src "$1"
+    configure_src "$@"
+    make_src "$1"
+
+    cd $CURRENT_DIR
+}
+
+compile_with_dot_bstrp()
+{
+    local CURRENT_DIR
+    CURRENT_DIR=$(pwd)
+
+    cd $SRC/$1
+
+    dot_bootstrap_src "$1"
+    configure_src "$@"
+    make_src "$1"
+
+    cd $CURRENT_DIR
+}
+
 compile_with_autog_iie()
 {
     local CURRENT_DIR
@@ -310,12 +370,13 @@ git_get_fresh  libass                     https://github.com/libass/libass.git
 git_get_fresh  libopenjpeg                https://github.com/uclouvain/openjpeg.git
 git_get_fresh  libsoxr                    https://git.code.sf.net/p/soxr/code
 git_get_fresh  libspeex                   https://github.com/xiph/speex.git
-git_get_fresh  openssl                    git://git.openssl.org/openssl.git
 git_get_fresh  libtheora                  https://github.com/xiph/theora.git
 git_get_fresh  libvidstab                 https://github.com/georgmartius/vid.stab.git
 git_get_fresh  libwebp                    https://chromium.googlesource.com/webm/libwebp
 git_get_fresh  ffnvcodec                  https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
 git_get_fresh  c2man                      https://github.com/fribidi/c2man.git
+git_get_submd  gnutls                     https://gitlab.com/gnutls/gnutls.git
+git_get_fresh  nettle                     https://git.lysator.liu.se/nettle/nettle
 
 dl_tar_gz_fre  lame      http://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz
 dl_tar_gz_fre  xvidcore  https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz
@@ -386,8 +447,6 @@ compile_with_cmake     libsoxr \
 compile_with_autogen   libspeex \
                        --disable-shared
 
-compile_with_config    openssl
-
 compile_with_autogen   libtheora \
                        --disable-shared
 
@@ -401,6 +460,17 @@ compile_with_autogen   libwebp
 compile_with_autogen   frei0r
 
 compile_ffnvcodec      ffnvcodec
+
+compile_with_dot_bstrp nettle \
+                       --bindir=$OUT_BIN \
+                       --disable-shared
+
+compile_with_bootstrap gnutls \
+                       --bindir=$OUT_BIN \
+                       --with-included-libtasn1 \
+                       --with-included-unistring \
+                       --without-p11-kit \
+                       --disable-shared
 
 compile_with_configure ffmpeg \
                        --bindir=$OUT_BIN \
@@ -446,6 +516,5 @@ compile_with_configure ffmpeg \
                        --enable-runtime-cpudetect \
                        --enable-manpages \
                        --enable-nvenc \
-                       --enable-nonfree \
-                       --enable-openssl
+                       --enable-gnutls
 
