@@ -485,6 +485,7 @@ compile_with_configure ffmpeg \
                        --extra-ldexeflags="-static" \
                        --enable-pthreads \
                        --enable-gpl \
+                       --disable-nonfree \
                        --enable-libx264 \
                        --enable-libx265 \
                        --enable-libopus \
