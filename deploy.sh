@@ -5,8 +5,8 @@ set -e
 
 
 DATE="$(date +%Y%m%d%H%M%S)"
-COMMIT="$(git rev-parse --short HEAD)"
-FFMPEG_DIR="ffmpeg-${DATE}-git${COMMIT}"
+VERSION="$(./ffmpeg_bin/ffmpeg -version | sed -n 's/^ffmpeg version \(.*\) Copyright.*$/\1/p')"
+FFMPEG_DIR="ffmpeg-${DATE}-${VERSION}"
 mkdir -p "$FFMPEG_DIR"
 
 cp ffmpeg_bin/ffmpeg "$FFMPEG_DIR/"
