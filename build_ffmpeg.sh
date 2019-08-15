@@ -11,7 +11,7 @@ set -x
 
 git_clone_ie() # git clone ignore error
 {
-    git clone $1 $2 || true
+    git clone --quiet $1 $2 || true
 }
 
 git_get_fresh()
@@ -355,7 +355,7 @@ mkdir -p $SRC
 # get source
 cd $SRC
 git_get_fresh  ffmpeg                     https://git.ffmpeg.org/ffmpeg.git
-git_get_frver  nasm         nasm-2.13.03  http://repo.or.cz/nasm.git
+git_get_frver  nasm         nasm-2.14.02  http://repo.or.cz/nasm.git
 git_get_fresh  yasm                       git://github.com/yasm/yasm.git
 git_get_fresh  libx264                    http://git.videolan.org/git/x264.git
 git_get_fresh  libx265                    https://github.com/videolan/x265
