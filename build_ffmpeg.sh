@@ -355,7 +355,7 @@ mkdir -p $SRC
 # get source
 cd $SRC
 git_get_fresh  ffmpeg                     https://git.ffmpeg.org/ffmpeg.git
-git_get_frver  nasm         nasm-2.14.02  http://repo.or.cz/nasm.git
+git_get_frver  nasm         nasm-2.13.03  https://repo.or.cz/nasm.git
 git_get_fresh  yasm                       git://github.com/yasm/yasm.git
 git_get_fresh  libx264                    http://git.videolan.org/git/x264.git
 git_get_fresh  libx265                    https://github.com/videolan/x265
@@ -386,7 +386,6 @@ cd $WD
 
 # BEGIN: TEMPORARY FIX FOR NASM
 cd $SRC/nasm
-git checkout include/nasmlib.h
 curl -s -o tmp-nasm.patch https://src.fedoraproject.org/rpms/nasm/raw/0cc3eb244bd971df81a7f02bc12c5ec259e1a5d6/f/0001-Remove-invalid-pure_func-qualifiers.patch
 patch include/nasmlib.h < tmp-nasm.patch
 cd -
