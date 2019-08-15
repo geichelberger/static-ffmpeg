@@ -6,6 +6,7 @@
 
 set -u
 set -e
+set -x
 
 
 git_clone_ie() # git clone ignore error
@@ -66,8 +67,8 @@ dl_tar_gz_fre()
     mkdir "$1"
     cd "$1"
 
-    curl -o tmp.tar.gz -L $2
-    tar -xzvf tmp.tar.gz --strip-components=1
+    curl -s -o tmp.tar.gz -L $2
+    tar -xzf tmp.tar.gz --strip-components=1
     rm tmp.tar.gz
 
     cd $CURRENT_DIR
