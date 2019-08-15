@@ -386,6 +386,7 @@ cd $WD
 
 # BEGIN: TEMPORARY FIX FOR NASM
 cd $SRC/nasm
+git checkout include/nasmlib.h
 curl -s -o tmp-nasm.patch https://src.fedoraproject.org/rpms/nasm/raw/0cc3eb244bd971df81a7f02bc12c5ec259e1a5d6/f/0001-Remove-invalid-pure_func-qualifiers.patch
 patch include/nasmlib.h < tmp-nasm.patch
 cd -
