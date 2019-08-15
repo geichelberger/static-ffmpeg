@@ -506,7 +506,6 @@ compile_with_configure ffmpeg \
                        --enable-libtheora \
                        --enable-libsoxr \
                        --enable-libxvid \
-                       --enable-libvidstab \
                        --enable-libwebp \
                        --enable-libass \
                        --enable-libfreetype \
@@ -526,3 +525,5 @@ compile_with_configure ffmpeg \
                        --enable-nvenc \
                        --enable-gnutls
 
+# TEMPORARILY DEACTIVATED
+#                       --enable-libvidstab \
