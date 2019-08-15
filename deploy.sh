@@ -17,6 +17,7 @@ cp ffmpeg_build/share/man/man1/ffprobe*  "$FFMPEG_DIR/man/man1/"
 
 tar cfJ "${FFMPEG_DIR}.tar.xz" "${FFMPEG_DIR}"
 ln -s "${FFMPEG_DIR}.tar.xz" ffmpeg-latest.tar.xz
+gpg --batch --output ffmpeg-latest.tar.xz.gpg --passphrase "$ENCRYPTION_KEY" --symmetric ffmpeg-latest.tar.xz
 
 mkdir -p ~/.ssh/
 chmod 700 ~/.ssh/
@@ -24,4 +25,8 @@ echo "$DEPLOY_SSH_KEY_BASE64" | base64 -d -i > ~/.ssh/id_rsa
 chmod 400 ~/.ssh/id_rsa
 ssh-keyscan -p "$DEPLOY_SSH_PORT" "$DEPLOY_HOSTNAME" > ~/.ssh/known_hosts
 
-scp -P "$DEPLOY_SSH_PORT" "${FFMPEG_DIR}.tar.xz" ffmpeg-latest.tar.xz "$DEPLOY_SSH_USER@$DEPLOY_HOSTNAME:$DEPLOY_PATH" || true
+scp -P "$DEPLOY_SSH_PORT" \
+  "${FFMPEG_DIR}.tar.xz" \
+  ffmpeg-latest.tar.xz \
+  ffmpeg-latest.tar.xz.gpg \
+  "$DEPLOY_SSH_USER@$DEPLOY_HOSTNAME:$DEPLOY_PATH" || true
