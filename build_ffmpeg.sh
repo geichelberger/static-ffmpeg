@@ -384,6 +384,12 @@ dl_tar_gz_fre  xvidcore  https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar
 cd $WD
 
 
+# BEGIN: TEMPORARY FIX FOR NASM
+cd $SRC/nasm
+curl -o tmp-nasm.patch https://src.fedoraproject.org/rpms/nasm/raw/0cc3eb244bd971df81a7f02bc12c5ec259e1a5d6/f/0001-Remove-invalid-pure_func-qualifiers.patch
+patch < tmp-nasm.patch
+cd -
+# END:   TEMPORARY FIX FOR NASM
 
 compile_with_autog_iie nasm \
                        --bindir=$OUT_BIN
