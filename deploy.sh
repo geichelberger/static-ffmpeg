@@ -14,9 +14,9 @@ cp ffmpeg_bin/ffprobe "$FFMPEG_DIR/"
 mkdir -p "$FFMPEG_DIR/man/man1"
 cp ffmpeg_build/share/man/man1/ffmpeg*   "$FFMPEG_DIR/man/man1"
 cp ffmpeg_build/share/man/man1/ffprobe*  "$FFMPEG_DIR/man/man1/"
-cp ffmpeg_bin/COPYING.GPLv3              "$FFMPEG_DIR/"
-cp ffmpeg_bin/README.md                  "$FFMPEG_DIR/"
-cp ffmpeg_bin/RELEASE                    "$FFMPEG_DIR/"
+cp src/ffmpeg/COPYING.GPLv3              "$FFMPEG_DIR/"
+cp src/ffmpeg/README.md                  "$FFMPEG_DIR/"
+cp src/ffmpeg/RELEASE                    "$FFMPEG_DIR/"
 
 tar cfJ "${FFMPEG_DIR}.tar.xz" "${FFMPEG_DIR}"
 ln -s "${FFMPEG_DIR}.tar.xz" ffmpeg-latest.tar.xz
