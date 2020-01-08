@@ -477,6 +477,8 @@ compile_with_bootstrap gnutls \
                        --with-included-libtasn1 \
                        --with-included-unistring \
                        --without-p11-kit \
+                       --disable-doc \
+                       --disable-full-test-suite \
                        --disable-shared
 
 compile_with_configure ffmpeg \
