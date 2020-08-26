@@ -330,7 +330,32 @@ compile_c2man()
     cd $CURRENT_DIR
 }
 
+compile_alsa()
+{
+    local CURRENT_DIR
+    CURRENT_DIR=$(pwd)
 
+    cd $SRC/$1
+
+    echo "ALSA CONFIGURE $1"
+
+    libtoolize --force --copy --automake
+    aclocal
+    autoheader
+    automake --foreign --copy --add-missing
+    autoconf
+    ./configure \
+        --prefix=$OUT_PREFIX \
+        --enable-shared=no \
+        --enable-static=yes
+
+    echo "MAKE $1"
+
+    make
+    make install
+
+    cd $CURRENT_DIR
+}
 
 # set path vars
 WD=$(pwd)
@@ -357,6 +382,7 @@ cd $SRC
 git_get_fresh  ffmpeg                     https://git.ffmpeg.org/ffmpeg.git
 git_get_frver  nasm         nasm-2.13.03  https://repo.or.cz/nasm.git
 git_get_fresh  yasm                       git://github.com/yasm/yasm.git
+git_get_fresh  alsa                       https://github.com/alsa-project/alsa-lib.git
 git_get_fresh  libx264                    http://git.videolan.org/git/x264.git
 git_get_fresh  libx265                    https://github.com/videolan/x265
 git_get_fresh  libopus                    https://github.com/xiph/opus.git
@@ -401,6 +427,8 @@ compile_c2man          c2man
 
 # update table
 hash -r
+
+compile_alsa           alsa
 
 compile_with_configure libx264 \
                        --bindir=$OUT_BIN \
@@ -527,4 +555,3 @@ compile_with_configure ffmpeg \
                        --enable-manpages \
                        --enable-nvenc \
                        --enable-gnutls
-
