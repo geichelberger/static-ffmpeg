@@ -4,6 +4,34 @@ set -u
 set -e
 
 
-apt-get update
-apt-get install -y git mercurial curl wget gcc make automake autoconf autogen libtool cmake g++ pkg-config bison flex gperf gettext autopoint texinfo texlive ghostscript
-apt-get install -y libfontconfig1-dev libfreetype6-dev libbz2-dev librubberband-dev libfftw3-dev libsamplerate0-dev libgmp-dev
+apt update
+apt install -y \
+	autoconf \
+	autogen \
+	automake \
+	autopoint \
+	bison \
+	cmake \
+	curl \
+	flex \
+	g++ \
+	gcc \
+	gettext \
+	ghostscript \
+	git\
+	gperf \
+	libbz2-dev \
+	libfftw3-dev \
+	libfontconfig1-dev \
+	libfreetype6-dev \
+	libgmp-dev \
+	libharfbuzz-dev\
+	librubberband-dev \
+	libsamplerate0-dev \
+	libtool \
+	make \
+	mercurial \
+	pkg-config \
+	texinfo \
+	texlive \
+	wget
