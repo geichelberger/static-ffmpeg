@@ -20,6 +20,7 @@ apt install -y \
 	ghostscript \
 	git\
 	gperf \
+	libass-dev \
 	libbz2-dev \
 	libfftw3-dev \
 	libfontconfig1-dev \
