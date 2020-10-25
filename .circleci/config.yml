@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-       - image: debian:9.5
+      - image: quay.io/elan-ev/ffmpeg-build-environment:latest
     steps:
       - checkout
       - run:
