@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: quay.io/elan-ev/ffmpeg-build-environment:debian-10.6
+      - image: quay.io/elan-ev/ffmpeg-build-environment:debian-9.13
     steps:
       - checkout
       - run:
