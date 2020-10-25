@@ -370,6 +370,10 @@ compile_with_configure lame \
                        --disable-shared \
                        --enable-nasm
 
+compile_with_autogen   fribidi \
+                       --bindir=$OUT_BIN \
+                       --disable-shared
+
 compile_with_cmake     libopenjpeg \
                        -DBUILD_SHARED_LIBS=OFF
 
