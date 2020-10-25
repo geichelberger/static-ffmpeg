@@ -9,6 +9,9 @@ jobs:
           name: Installing dependencies
           command: ./install_deps_debian.sh
       - run:
+          name: Get sources
+          command: ./get_sources.sh
+      - run:
           name: Building
           command: ./build_ffmpeg.sh
       - run:
