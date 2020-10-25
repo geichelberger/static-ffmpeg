@@ -83,29 +83,32 @@ mkdir -p $SRC
 
 # get source
 cd $SRC
-git_get_fresh  ffmpeg                     https://git.ffmpeg.org/ffmpeg.git
-git_get_frver  nasm         nasm-2.13.03  https://repo.or.cz/nasm.git
-git_get_fresh  yasm                       git://github.com/yasm/yasm.git
-git_get_fresh  alsa                       https://github.com/alsa-project/alsa-lib.git
-git_get_fresh  libx264                    http://git.videolan.org/git/x264.git
-git_get_fresh  libx265                    https://github.com/videolan/x265
-git_get_fresh  libopus                    https://github.com/xiph/opus.git
-git_get_fresh  libogg                     https://github.com/xiph/ogg.git
-git_get_fresh  libvorbis                  https://github.com/xiph/vorbis.git
-git_get_fresh  libvpx                     https://chromium.googlesource.com/webm/libvpx
-# git_get_fresh  freetype2                  git://git.sv.nongnu.org/freetype/freetype2.git
-# git_get_fresh  fontconfig                 git://anongit.freedesktop.org/fontconfig
-git_get_fresh  frei0r                     https://github.com/dyne/frei0r.git
-git_get_fresh  libopenjpeg                https://github.com/uclouvain/openjpeg.git
-git_get_fresh  libsoxr                    https://git.code.sf.net/p/soxr/code
-git_get_fresh  libspeex                   https://github.com/xiph/speex.git
-git_get_fresh  libtheora                  https://github.com/xiph/theora.git
-git_get_fresh  libvidstab                 https://github.com/georgmartius/vid.stab.git
-git_get_fresh  libwebp                    https://chromium.googlesource.com/webm/libwebp
-git_get_fresh  ffnvcodec                  https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
-git_get_fresh  c2man                      https://github.com/fribidi/c2man.git
-git_get_submd  gnutls                     https://gitlab.com/gnutls/gnutls.git
-git_get_fresh  nettle                     https://git.lysator.liu.se/nettle/nettle
+git_get_fresh  ffmpeg                     https://git.ffmpeg.org/ffmpeg.git &
+git_get_frver  nasm         nasm-2.13.03  https://repo.or.cz/nasm.git &
+git_get_fresh  yasm                       git://github.com/yasm/yasm.git &
+git_get_fresh  alsa                       https://github.com/alsa-project/alsa-lib.git &
+git_get_fresh  libx264                    http://git.videolan.org/git/x264.git &
+git_get_fresh  libx265                    https://github.com/videolan/x265 &
+git_get_fresh  libopus                    https://github.com/xiph/opus.git &
+git_get_fresh  libogg                     https://github.com/xiph/ogg.git &
+git_get_fresh  libvorbis                  https://github.com/xiph/vorbis.git &
+git_get_fresh  libvpx                     https://chromium.googlesource.com/webm/libvpx &
+# git_get_fresh  freetype2                  git://git.sv.nongnu.org/freetype/freetype2.git &
+# git_get_fresh  fontconfig                 git://anongit.freedesktop.org/fontconfig &
+git_get_fresh  frei0r                     https://github.com/dyne/frei0r.git &
+git_get_fresh  libopenjpeg                https://github.com/uclouvain/openjpeg.git &
+git_get_fresh  libsoxr                    https://git.code.sf.net/p/soxr/code &
+git_get_fresh  libspeex                   https://github.com/xiph/speex.git &
+git_get_fresh  libtheora                  https://github.com/xiph/theora.git &
+git_get_fresh  libvidstab                 https://github.com/georgmartius/vid.stab.git &
+git_get_fresh  libwebp                    https://chromium.googlesource.com/webm/libwebp &
+git_get_fresh  ffnvcodec                  https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &
+git_get_fresh  c2man                      https://github.com/fribidi/c2man.git &
+git_get_submd  gnutls                     https://gitlab.com/gnutls/gnutls.git &
+git_get_fresh  nettle                     https://git.lysator.liu.se/nettle/nettle &
 
-dl_tar_gz_fre  lame      http://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz
-dl_tar_gz_fre  xvidcore  https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz
+dl_tar_gz_fre  lame      http://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz &
+dl_tar_gz_fre  xvidcore  https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz &
+
+# wait for download jobs to finish
+wait
