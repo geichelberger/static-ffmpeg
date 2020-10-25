@@ -20,13 +20,11 @@ apt install -y \
 	ghostscript \
 	git\
 	gperf \
-	libass-dev \
 	libbz2-dev \
 	libfftw3-dev \
 	libfontconfig1-dev \
 	libfreetype6-dev \
 	libgmp-dev \
-	libharfbuzz-dev\
 	librubberband-dev \
 	libsamplerate0-dev \
 	libtool \

@@ -392,8 +392,6 @@ git_get_fresh  libvpx                     https://chromium.googlesource.com/webm
 # git_get_fresh  freetype2                  git://git.sv.nongnu.org/freetype/freetype2.git
 # git_get_fresh  fontconfig                 git://anongit.freedesktop.org/fontconfig
 git_get_fresh  frei0r                     https://github.com/dyne/frei0r.git
-git_get_fresh  fribidi                    https://github.com/fribidi/fribidi.git
-git_get_fresh  libass                     https://github.com/libass/libass.git
 git_get_fresh  libopenjpeg                https://github.com/uclouvain/openjpeg.git
 git_get_fresh  libsoxr                    https://git.code.sf.net/p/soxr/code
 git_get_fresh  libspeex                   https://github.com/xiph/speex.git
@@ -407,6 +405,7 @@ git_get_fresh  nettle                     https://git.lysator.liu.se/nettle/nett
 
 dl_tar_gz_fre  lame      http://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz
 dl_tar_gz_fre  xvidcore  https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz
+
 cd $WD
 
 
@@ -461,15 +460,6 @@ compile_with_configure lame \
                        --disable-shared \
                        --enable-nasm
 
-# compile fribidi (dependency of libass)
-compile_with_autogen   fribidi \
-                       --bindir=$OUT_BIN \
-                       --disable-shared
-
-compile_with_autogen   libass \
-                       --bindir=$OUT_BIN \
-                       --disable-shared
-
 compile_with_cmake     libopenjpeg \
                        -DBUILD_SHARED_LIBS=OFF
 
@@ -490,7 +480,8 @@ compile_with_config_sp xvidcore build/generic
 compile_with_cmake     libvidstab \
                        -DBUILD_SHARED_LIBS=OFF
 
-compile_with_autogen   libwebp
+compile_with_autogen   libwebp \
+                       --disable-shared
 
 compile_with_autogen   frei0r
 
@@ -538,7 +529,6 @@ compile_with_configure ffmpeg \
                        --enable-libxvid \
                        --enable-libvidstab \
                        --enable-libwebp \
-                       --enable-libass \
                        --enable-libfreetype \
                        --enable-libfribidi \
                        --enable-frei0r \
