@@ -90,7 +90,7 @@ make_src()
 {
     echo "MAKE $1"
 
-    make
+    make -j"${CPU_CORES}"
     make install
 }
 
@@ -98,7 +98,7 @@ make_iie_src() # ignore install error
 {
     echo "MAKE $1"
 
-    make
+    make -j"${CPU_CORES}"
     make install || true
 }
 
@@ -259,7 +259,7 @@ compile_c2man()
     echo "MAKE $1"
 
     make depend
-    make
+    make -j"${CPU_CORES}"
     make install
 
     cd $CURRENT_DIR
@@ -286,11 +286,15 @@ compile_alsa()
 
     echo "MAKE $1"
 
-    make
+    make -j"${CPU_CORES}"
     make install
 
     cd $CURRENT_DIR
 }
+
+# get cpu count
+CPU_CORES="$(grep ^processor /proc/cpuinfo | wc -l)"
+echo "Building with ${CPU_CORES} parallel jobs"
 
 # set path vars
 WD=$(pwd)
