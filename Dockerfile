@@ -3,7 +3,7 @@
 # Based on Debian
 ############################################################
 
-FROM docker.io/library/debian:9.13
+FROM docker.io/library/debian:10.6
 # Update the repository sources list
 RUN apt update && apt install -y \
 	autoconf \
