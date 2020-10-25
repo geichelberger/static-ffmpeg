@@ -96,7 +96,7 @@ git_get_fresh  libvpx                     https://chromium.googlesource.com/webm
 # git_get_fresh  freetype2                  git://git.sv.nongnu.org/freetype/freetype2.git &
 # git_get_fresh  fontconfig                 git://anongit.freedesktop.org/fontconfig &
 git_get_fresh  frei0r                     https://github.com/dyne/frei0r.git &
-git_get_fresh  fribidi
+git_get_fresh  fribidi                    https://github.com/fribidi/fribidi.git &
 git_get_fresh  libopenjpeg                https://github.com/uclouvain/openjpeg.git &
 git_get_fresh  libsoxr                    https://git.code.sf.net/p/soxr/code &
 git_get_fresh  libspeex                   https://github.com/xiph/speex.git &
