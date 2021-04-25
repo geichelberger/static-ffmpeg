@@ -86,7 +86,7 @@ cd $SRC
 git_get_fresh  ffmpeg                     https://git.ffmpeg.org/ffmpeg.git &
 git_get_frver  nasm         nasm-2.13.03  https://repo.or.cz/nasm.git &
 git_get_fresh  yasm                       git://github.com/yasm/yasm.git &
-git_get_fresh  alsa                       https://github.com/alsa-project/alsa-lib.git &
+git_get_frver  alsa         v1.2.4        https://github.com/alsa-project/alsa-lib.git &
 git_get_fresh  libx264                    http://git.videolan.org/git/x264.git &
 git_get_fresh  libx265                    https://github.com/videolan/x265 &
 git_get_fresh  libopus                    https://github.com/xiph/opus.git &
