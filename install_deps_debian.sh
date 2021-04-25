@@ -31,6 +31,7 @@ apt install -y \
 	make \
 	mercurial \
 	pkg-config \
+	s3cmd \
 	texinfo \
 	texlive \
 	wget
