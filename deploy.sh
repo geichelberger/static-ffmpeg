@@ -18,7 +18,7 @@ cp src/ffmpeg/README.md                  "$FFMPEG_DIR/"
 cp src/ffmpeg/RELEASE                    "$FFMPEG_DIR/"
 
 tar cfJ "${FFMPEG_DIR}.tar.xz" "${FFMPEG_DIR}"
-ln -s "${FFMPEG_DIR}.tar.xz" ffmpeg-latest.tar.xz
+cp "${FFMPEG_DIR}.tar.xz" ffmpeg-latest.tar.xz
 
 echo "host_base = ${S3_HOST}" > "$HOME/.s3cfg"
 echo "host_bucket = ${S3_HOST}" >> "$HOME/.s3cfg"
