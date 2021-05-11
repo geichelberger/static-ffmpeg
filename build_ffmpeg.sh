@@ -448,7 +448,6 @@ compile_with_configure ffmpeg \
                        --enable-frei0r \
                        --enable-librubberband \
                        --enable-avfilter \
-                       --enable-avresample \
                        --enable-bzlib \
                        --enable-zlib \
                        --enable-hardcoded-tables \
