@@ -5,6 +5,7 @@ set -e
 
 
 apt update
+apt upgrade -y
 apt install -y \
 	autoconf \
 	autogen \
