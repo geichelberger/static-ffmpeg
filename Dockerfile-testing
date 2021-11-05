@@ -1,0 +1,19 @@
+############################################################
+# Dockerfile for building the static FFmpeg binary
+# Based on Debian
+############################################################
+
+FROM docker.io/library/alpine:edge
+
+RUN mkdir /static-ffmpeg
+ADD install_deps_alpine_docker.sh /static-ffmpeg/
+
+RUN /static-ffmpeg/install_deps_alpine_docker.sh
+
+ADD get_sources.sh /static-ffmpeg/
+ADD build_ffmpeg.sh /static-ffmpeg/
+
+RUN adduser builder -s /bin/bash -D -H -h /static-ffmpeg
+RUN chown builder:builder -v -R /static-ffmpeg
+WORKDIR /static-ffmpeg
+USER builder

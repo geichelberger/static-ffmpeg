@@ -2,12 +2,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: quay.io/elan-ev/ffmpeg-build-environment:debian-9.13
+      - image: alpine:edge
     steps:
       - checkout
       - run:
           name: Installing dependencies
-          command: ./install_deps_debian.sh
+          command: ./install_deps_alpine_docker.sh
       - run:
           name: Get sources
           command: ./get_sources.sh

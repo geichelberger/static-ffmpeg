@@ -1,0 +1,18 @@
+############################################################
+# Dockerfile for building the static FFmpeg binary
+# Based on Debian
+############################################################
+
+FROM docker.io/library/debian:9.13
+RUN mkdir /static-ffmpeg
+ADD static-ffmpeg-dev/install_deps_debian.sh /static-ffmpeg/
+ADD static-ffmpeg-dev/get_sources.sh /static-ffmpeg/
+ADD static-ffmpeg-dev/build_ffmpeg.sh /static-ffmpeg/
+RUN /static-ffmpeg/install_deps_debian.sh
+RUN chown -v -R www-data:www-data /static-ffmpeg
+RUN apt install -y vim musl musl-dev musl-tools
+RUN ln -sv /usr/include/linux/ /usr/include/x86_64-linux-musl/linux
+RUN ln -sv /usr/include/x86_64-linux-gnu/asm/ /usr/include/x86_64-linux-musl/asm
+RUN ln -sv /usr/include/asm-generic/ /usr/include/x86_64-linux-musl/asm-generic
+WORKDIR /static-ffmpeg
+USER www-data

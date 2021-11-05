@@ -215,8 +215,9 @@ compile_with_cmake_sp()
     local CURRENT_DIR
     CURRENT_DIR=$(pwd)
 
-    cd $SRC/$1
-    cd $2
+    cd "$SRC/$1"
+    mkdir -p "$2"
+    cd "$2"
 
     cmake_sp_src "$1" "$3" "${@:4}"
     make_src "$1"
@@ -292,6 +293,47 @@ compile_alsa()
     cd $CURRENT_DIR
 }
 
+compile_svtav1()
+{
+    local CURRENT_DIR
+    CURRENT_DIR=$(pwd)
+
+    cd "$SRC/$1"
+
+    echo "SVT_AV1 BUILD $1"
+
+    cd "Build/linux"
+    ./build.sh \
+        prefix="$OUT_PREFIX" \
+        jobs="$CPU_CORES" \
+        release \
+        static \
+        install
+
+    cd $CURRENT_DIR
+}
+
+compile_rav1e()
+{
+    local CURRENT_DIR
+    CURRENT_DIR=$(pwd)
+
+    cd "$SRC/$1"
+
+    echo "install cargo-c (for rav1e)"
+    cargo install --root="$OUT_PREFIX" cargo-c
+
+    echo "rav1e BUILD $1"
+    PATH="$OUT_PREFIX/bin:$PATH" cargo build --release
+    PATH="$OUT_PREFIX/bin:$PATH" cargo cinstall --release \
+          --prefix="$OUT_PREFIX"
+
+    echo "FIX rav1e.pc file" # Hack
+    sed -i "s/ -lgcc_s / /g" "$OUT_PREFIX/lib/pkgconfig/rav1e.pc"
+
+    cd $CURRENT_DIR
+}
+
 # get cpu count
 CPU_CORES="$(grep ^processor /proc/cpuinfo | wc -l)"
 echo "Building with ${CPU_CORES} parallel jobs"
@@ -306,12 +348,18 @@ OUT_PKG_CONFIG=$OUT_PREFIX/lib/pkgconfig
 
 export PATH="$OUT_BIN:$PATH"
 export PKG_CONFIG_PATH=$OUT_PKG_CONFIG
+export CFLAGS="${CFLAGS-} -march=x86-64 -mtune=generic"
+export CXXFLAGS="${CXXFLAGS-} $CFLAGS"
+export LDFLAGS="${LDFLAGS-}"
+# export CC="gcc"
+# export CXX="g++"
 
 rm -rf $OUT_PREFIX
 rm -rf $OUT_BIN
 
 mkdir -p $OUT_PKG_CONFIG
 mkdir -p $OUT_PREFIX
+mkdir -p $OUT_PREFIX/lib
 mkdir -p $OUT_BIN
 mkdir -p $SRC
 
@@ -319,18 +367,11 @@ mkdir -p $SRC
 cd $WD
 
 
-# BEGIN: TEMPORARY FIX FOR NASM
-cd $SRC/nasm
-curl -s -o tmp-nasm.patch https://src.fedoraproject.org/rpms/nasm/raw/0cc3eb244bd971df81a7f02bc12c5ec259e1a5d6/f/0001-Remove-invalid-pure_func-qualifiers.patch
-patch include/nasmlib.h < tmp-nasm.patch
-cd -
-# END:   TEMPORARY FIX FOR NASM
-
 compile_with_autog_iie nasm \
                        --bindir=$OUT_BIN
 
-compile_with_autogen   yasm \
-                       --bindir=$OUT_BIN
+# compile_with_autogen   yasm \
+#                        --bindir=$OUT_BIN
 
 compile_c2man          c2man
 
@@ -345,8 +386,17 @@ compile_with_configure libx264 \
                        --enable-pic \
                        --bit-depth=all
 
+CFLAGS="$CFLAGS -static-libgcc" \
+CXXFLAGS="$CXXFLAGS -static-libgcc -static-libstdc++" \
 compile_with_cmake_sp  libx265 build/linux ../../source \
                        -DENABLE_SHARED:bool=off
+
+compile_with_cmake_sp  libaom-av1 build .. \
+                       -DBUILD_SHARED_LIBS=0
+
+compile_svtav1         svt_av1
+
+compile_rav1e          rav1e
 
 compile_with_autogen   libopus \
                        --disable-shared
@@ -405,6 +455,13 @@ compile_with_dot_bstrp nettle \
                        --bindir=$OUT_BIN \
                        --disable-shared
 
+# autogen for gnutls (autogen is not on alpine?)
+# as long as guile-3.0 is not supported by autogen, we cant use the system package
+compile_with_configure guile
+compile_with_configure autogen \
+                       --bindir=$OUT_BIN \
+                       --disable-dependency-tracking
+
 compile_with_bootstrap gnutls \
                        --bindir=$OUT_BIN \
                        --with-included-libtasn1 \
@@ -421,10 +478,12 @@ compile_with_configure ffmpeg \
                        --extra-ldflags="-L$OUT_PREFIX/lib" \
                        --extra-libs=-lpthread \
                        --extra-libs=-lm \
-                       --extra-libs=-lmvec \
                        --extra-libs=-lfftw3 \
                        --extra-libs=-lsamplerate \
-                       --extra-ldexeflags="-static" \
+                       --extra-libs=-lstdc++ \
+                       --extra-cflags="-static -static-libgcc" \
+                       --extra-cxxflags="-static -static-libgcc -static-libstdc++" \
+                       --extra-ldexeflags="-static -static-libgcc -static-libstdc++" \
                        --enable-pthreads \
                        --enable-gpl \
                        --disable-nonfree \
@@ -437,6 +496,9 @@ compile_with_configure ffmpeg \
                        --enable-fontconfig \
                        --enable-libopenjpeg \
                        --enable-libspeex \
+                       --enable-libaom \
+                       --enable-libsvtav1 \
+                       --enable-librav1e \
                        --enable-network \
                        --enable-libtheora \
                        --enable-libsoxr \
@@ -458,3 +520,5 @@ compile_with_configure ffmpeg \
                        --enable-manpages \
                        --enable-nvenc \
                        --enable-gnutls
+
+echo "DONE"

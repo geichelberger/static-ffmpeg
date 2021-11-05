@@ -35,3 +35,5 @@ apt install -y \
 	texinfo \
 	texlive \
 	wget
+
+echo "DONE"
