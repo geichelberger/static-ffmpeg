@@ -30,3 +30,5 @@ echo "signature_v2 = False" >> "$HOME/.s3cfg"
 
 s3cmd put -P "${FFMPEG_DIR}.tar.xz" s3://opencast-ffmpeg-static/
 s3cmd put -P ffmpeg-latest.tar.xz   s3://opencast-ffmpeg-static/
+
+echo "DONE"

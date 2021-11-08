@@ -67,9 +67,28 @@ dl_tar_gz_fre()
     mkdir "$1"
     cd "$1"
 
-    curl -s -o tmp.tar.gz -L $2
+    curl -s -o tmp.tar.gz -L "$2"
     tar -xzf tmp.tar.gz --strip-components=1
     rm tmp.tar.gz
+
+    cd $CURRENT_DIR
+}
+
+dl_tar_xz_fre()
+{
+    local CURRENT_DIR
+    CURRENT_DIR=$(pwd)
+
+    echo "CLEAN/DOWNLOAD/UNTAR $1"
+
+    rm -rf "$1"
+
+    mkdir "$1"
+    cd "$1"
+
+    curl -s -o tmp.tar.xz -L "$2"
+    tar -xJf tmp.tar.xz --strip-components=1
+    rm tmp.tar.xz
 
     cd $CURRENT_DIR
 }
@@ -84,11 +103,12 @@ mkdir -p $SRC
 # get source
 cd $SRC
 git_get_fresh  ffmpeg                     https://git.ffmpeg.org/ffmpeg.git &
-git_get_frver  nasm         nasm-2.13.03  https://repo.or.cz/nasm.git &
-git_get_fresh  yasm                       git://github.com/yasm/yasm.git &
-git_get_frver  alsa         v1.2.4        https://github.com/alsa-project/alsa-lib.git &
+# git_get_frver  nasm         nasm-2.13.03  https://repo.or.cz/nasm.git &
+git_get_fresh  nasm                       https://repo.or.cz/nasm.git &
+# git_get_fresh  yasm                       git://github.com/yasm/yasm.git &
+git_get_fresh  alsa                       https://github.com/alsa-project/alsa-lib.git &
 git_get_fresh  libx264                    http://git.videolan.org/git/x264.git &
-git_get_fresh  libx265                    https://github.com/videolan/x265 &
+git_get_fresh  libx265                    https://bitbucket.org/multicoreware/x265_git.git &
 git_get_fresh  libopus                    https://github.com/xiph/opus.git &
 git_get_fresh  libogg                     https://github.com/xiph/ogg.git &
 git_get_fresh  libvorbis                  https://github.com/xiph/vorbis.git &
@@ -107,9 +127,16 @@ git_get_fresh  ffnvcodec                  https://git.videolan.org/git/ffmpeg/nv
 git_get_fresh  c2man                      https://github.com/fribidi/c2man.git &
 git_get_submd  gnutls                     https://gitlab.com/gnutls/gnutls.git &
 git_get_fresh  nettle                     https://git.lysator.liu.se/nettle/nettle &
+git_get_fresh  libaom-av1                 https://aomedia.googlesource.com/aom &
+git_get_fresh  svt_av1                    https://gitlab.com/AOMediaCodec/SVT-AV1.git &
+git_get_fresh  rav1e                      https://github.com/xiph/rav1e.git &
 
-dl_tar_gz_fre  lame      http://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz &
-dl_tar_gz_fre  xvidcore  https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz &
+dl_tar_gz_fre  lame                       http://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz &
+dl_tar_gz_fre  xvidcore                   https://downloads.xvid.com/downloads/xvidcore-1.3.7.tar.gz &
+dl_tar_xz_fre  autogen                    https://ftp.gnu.org/gnu/autogen/rel5.18.16/autogen-5.18.16.tar.xz
+dl_tar_gz_fre  guile                      https://ftp.gnu.org/pub/gnu/guile/guile-2.2.7.tar.gz
 
 # wait for download jobs to finish
 wait
+
+echo "DONE"
