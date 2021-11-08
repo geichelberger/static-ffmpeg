@@ -13,6 +13,7 @@ jobs:
           command: ./get_sources.sh
       - run:
           name: Building
+          no_output_timeout: 60m
           command: ./build_ffmpeg.sh
       - run:
           name: Deploy
