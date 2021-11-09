@@ -391,8 +391,8 @@ CXXFLAGS="$CXXFLAGS -static-libgcc -static-libstdc++" \
 compile_with_cmake_sp  libx265 build/linux ../../source \
                        -DENABLE_SHARED:bool=off
 
-compile_with_cmake_sp  libaom-av1 build .. \
-                       -DBUILD_SHARED_LIBS=0
+#compile_with_cmake_sp  libaom-av1 build .. \
+#                       -DBUILD_SHARED_LIBS=0
 
 compile_svtav1         svt_av1
 
@@ -496,7 +496,6 @@ compile_with_configure ffmpeg \
                        --enable-fontconfig \
                        --enable-libopenjpeg \
                        --enable-libspeex \
-                       --enable-libaom \
                        --enable-libsvtav1 \
                        --enable-librav1e \
                        --enable-network \
