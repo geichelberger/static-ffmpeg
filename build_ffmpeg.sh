@@ -335,7 +335,13 @@ compile_rav1e()
 }
 
 # get cpu count
-CPU_CORES="$(nproc)"
+CPU_CORES="$(grep ^processor /proc/cpuinfo | wc -l)"
+# The RAM to CPU_CORES ratio on circleci seems to be a problem or just the big number of generated jobs
+if [ "$CIRCLECI" = "true" ] && [ "$CPU_CORES" -gt 4 ]
+then
+    echo "Detected CircleCI and many parallel jobs => reducing parallel jobs"
+    CPU_CORES=4
+fi
 echo "Building with ${CPU_CORES} parallel jobs"
 
 # set path vars
