@@ -1,0 +1,29 @@
+name: Build FFmpeg
+
+on:
+  push:
+
+jobs:
+  build:
+    name: build ffmpeg
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/library/alpine:20210804
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install dependencies
+        run: ./install_deps_alpine_docker.sh
+
+      - name: get sources
+        run: ./get_sources.sh
+
+      - name: build ffmpeg
+        run: ./build_ffmpeg.sh
+
+      - name: archive binary
+        env:
+          S3_HOST: ${{ secrets.S3_HOST }}
+          S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+          S3_SECRET_KEY: ${{ secrets.S3_SECRET_KEY }}
+        run: ./deploy.sh
