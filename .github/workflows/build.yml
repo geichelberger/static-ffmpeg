@@ -1,7 +1,10 @@
 name: Build FFmpeg
 
+# On push and every Monday at 2:32 am
 on:
   push:
+  schedule:
+    - cron: '32 2 * * 1'
 
 jobs:
   build:
