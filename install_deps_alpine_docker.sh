@@ -55,6 +55,7 @@ apk add alpine-sdk \
 	texlive-dvi \
 	wget \
 	sudo \
-	gtk-doc
+	gtk-doc \
+	libtasn1
 
 echo "DONE"
