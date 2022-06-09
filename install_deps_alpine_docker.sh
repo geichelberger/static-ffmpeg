@@ -54,6 +54,7 @@ apk add alpine-sdk \
 	texlive \
 	texlive-dvi \
 	wget \
-	sudo
+	sudo \
+	gtk-doc
 
 echo "DONE"
