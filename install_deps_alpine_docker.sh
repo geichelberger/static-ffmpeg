@@ -56,6 +56,7 @@ apk add alpine-sdk \
 	wget \
 	sudo \
 	gtk-doc \
-	libtasn1
+	libtasn1 \
+	libtasn1-progs
 
 echo "DONE"
