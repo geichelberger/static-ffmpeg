@@ -130,6 +130,7 @@ git_get_fresh  nettle                     https://git.lysator.liu.se/nettle/nett
 git_get_fresh  libaom-av1                 https://aomedia.googlesource.com/aom &
 git_get_fresh  svt_av1                    https://gitlab.com/AOMediaCodec/SVT-AV1.git &
 git_get_fresh  rav1e                      https://github.com/xiph/rav1e.git &
+git_get_fresh  samplerate	              https://github.com/libsndfile/libsamplerate &
 
 dl_tar_gz_fre  lame                       http://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz &
 dl_tar_gz_fre  xvidcore                   https://downloads.xvid.com/downloads/xvidcore-1.3.7.tar.gz &
