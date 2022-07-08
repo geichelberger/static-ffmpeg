@@ -479,6 +479,9 @@ compile_with_bootstrap gnutls \
                        --disable-full-test-suite \
                        --disable-shared
 
+compile_with_cmake     samplerate \
+                       -DBUILD_SHARED_LIBS=OFF
+
 compile_with_configure ffmpeg \
                        --bindir=$OUT_BIN \
                        --pkg-config-flags="--static" \
