@@ -132,6 +132,9 @@ git_get_fresh  svt_av1                    https://gitlab.com/AOMediaCodec/SVT-AV
 git_get_fresh  rav1e                      https://github.com/xiph/rav1e.git &
 git_get_fresh  samplerate	              https://github.com/libsndfile/libsamplerate &
 
+#nonfree
+git_get_fresh  libfdk-aac                 https://github.com/mstorsjo/fdk-aac.git &
+
 dl_tar_gz_fre  lame                       http://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz &
 dl_tar_gz_fre  xvidcore                   https://downloads.xvid.com/downloads/xvidcore-1.3.7.tar.gz &
 dl_tar_xz_fre  autogen                    https://ftp.gnu.org/gnu/autogen/rel5.18.16/autogen-5.18.16.tar.xz

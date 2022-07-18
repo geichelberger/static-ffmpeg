@@ -399,6 +399,9 @@ CXXFLAGS="$CXXFLAGS -static-libgcc -static-libstdc++" \
 compile_with_cmake_sp  libx265 build/linux ../../source \
                        -DENABLE_SHARED:bool=off
 
+compile_with_cmake_sp  libfdk-aac build .. \
+                       -DBUILD_SHARED_LIBS=OFF
+
 compile_with_cmake_sp  libaom-av1 build .. \
                        -DBUILD_SHARED_LIBS=0
 
@@ -497,7 +500,7 @@ compile_with_configure ffmpeg \
                        --extra-ldexeflags="-static -static-libgcc -static-libstdc++" \
                        --enable-pthreads \
                        --enable-gpl \
-                       --disable-nonfree \
+                       --enable-nonfree \
                        --enable-libx264 \
                        --enable-libx265 \
                        --enable-libopus \
@@ -530,6 +533,7 @@ compile_with_configure ffmpeg \
                        --enable-runtime-cpudetect \
                        --enable-manpages \
                        --enable-nvenc \
-                       --enable-gnutls
+                       --enable-gnutls \
+                       --enable-runtime-cpudetect
 
 echo "DONE"
